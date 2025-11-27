@@ -1,0 +1,28 @@
+api_keys:
+    openai_api_key: ${OPENAI_API_KEY}
+    reddit_client_id: ${REDDIT_CLIENT_ID}
+    reddit_secret: ${REDDIT_SECRET}
+    twitter_bearer_token: ${TWITTER_BEARER_TOKEN}
+
+scraping:
+    reddit_subreddits: [wallstreetbets, stocks, investing]
+    news_sources: [reuters, bloomberg, cnbc]
+    update_frequency: hourly
+    max_texts_per_request: 20
+
+rate_limiting:
+    max_requests_per_minute: 60
+    max_requests_per_day: 1000
+    max_daily_cost_usd: 10.0
+    max_texts_per_sentiment_request: 20
+
+strategy:
+    sentiment_weight: 0.6
+    technical_weight: 0.4
+    buy_threshold: 0.6
+    sell_threshold: -0.6
+
+backtesting:
+    initial_capital: 100000
+    transaction_cost: 0.001
+

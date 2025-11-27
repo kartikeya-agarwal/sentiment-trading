@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Trading System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1>Sentiment Trading System</h1>
+        <div class="search-bar">
+            <input type="text" id="ticker-input" placeholder="Enter stock ticker (e.g., AAPL, MSFT)" value="AAPL">
+            <button onclick="searchStock()">Analyze</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="loading" class="loading" style="display: none;">Loading...</div>
+        <div id="error" class="error" style="display: none;"></div>
+
+        <!-- Recommendation Card -->
+        <div id="recommendation-card" class="recommendation-card" style="display: none;">
+            <h2 id="recommendation-ticker"></h2>
+            <div id="signal" class="signal"></div>
+            <div id="confidence" class="confidence"></div>
+            <div id="reasoning" style="margin-top: 20px; padding: 15px; background: #f9fafb; border-radius: 5px;"></div>
+        </div>
+
+        <!-- Charts Section -->
+        <div id="charts-section" style="display: none;">
+            <div class="chart-container">
+                <h2>Price Chart with Sentiment Overlay</h2>
+                <div id="price-chart"></div>
+            </div>
+            
+            <div class="chart-container">
+                <h2>Sentiment Timeline</h2>
+                <div id="sentiment-chart"></div>
+            </div>
+        </div>
+
+        <!-- Sentiment Snippets -->
+        <div id="sentiment-snippets" class="sentiment-snippets" style="display: none;">
+            <h2>Recent Mentions</h2>
+            <div id="snippets-list"></div>
+        </div>
+
+        <!-- Backtesting Section -->
+        <div class="backtest-section">
+            <h2>Backtesting</h2>
+            <div class="backtest-controls">
+                <input type="text" id="backtest-ticker" placeholder="Ticker" value="AAPL">
+                <input type="date" id="start-date" value="">
+                <input type="date" id="end-date" value="">
+                <button onclick="runBacktest()">Run Backtest</button>
+            </div>
+            <div id="backtest-results" style="display: none;">
+                <h3>Backtest Results</h3>
+                <div class="metrics" id="backtest-metrics"></div>
+                <div class="chart-container">
+                    <h3>Performance Comparison</h3>
+                    <div id="performance-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        // Set default dates for backtesting (1 year ago to today)
+        const today = new Date();
+        const oneYearAgo = new Date();
+        oneYearAgo.setFullYear(today.getFullYear() - 1);
+        
+        document.getElementById('end-date').value = today.toISOString().split('T')[0];
+        document.getElementById('start-date').value = oneYearAgo.toISOString().split('T')[0];
+    </script>
+</body>
+</html>
+
